@@ -1,7 +1,6 @@
 ///////////////////////////////////////
 // Lecture: Hoisting
 
-
 // FUNCTIONS
 
 calculateAge(1990);
