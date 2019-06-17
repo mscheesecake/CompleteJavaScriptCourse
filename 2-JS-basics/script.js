@@ -11,18 +11,26 @@ GOOD LUCK 😀
 */
 
 
-const massMark = 65;
+const massMark = 165;
 const massJohn = 92;
 const heightMark = 1.69;
 const heightJohn = 1.95;
 
-const BMIMark = massMark / (heightMark * heightMark);
-const BMIJohn = massJohn / (heightJohn * heightJohn);
+function calculateBMI(mass, height) {
+	return BMI = mass / height * height;
+}
 
-console.log(BMIMark, BMIJohn);
+//const BMIMark = massMark / (heightMark * heightMark);
+//const BMIJohn = massJohn / (heightJohn * heightJohn);
 
-let markHigherBMI = BMIMark > BMIJohn;
-console.log('Is Mark\'s BMI higher than John\'s?' + markHigherBMI);
+//console.log(BMIMark, BMIJohn);
+
+
+function isMarksBmiHigher(){
+	return (calculateBMI(massMark, heightMark) > calculateBMI(massJohn, heightJohn)) ? 'Yes' : 'No';
+};
+//let markHigherBMI = BMIMark > BMIJohn;
+console.log('Is Mark\'s BMI higher than John\'s? ' + isMarksBmiHigher());
 
 
 /* CODING CHALLENGE 2
@@ -47,6 +55,7 @@ in mind there might be draws.
 GOOD LUCK 😀
 */
 
+/*
 const averageScoreJohn = (150 + 120 + 103) / 3;
 const averageScoreMike = (150 + 120 + 103) / 3;
 const averageScoreMary = (160 + 134 + 105) / 3;
@@ -54,7 +63,66 @@ const averageScoreMary = (160 + 134 + 105) / 3;
 console.log('John: ' + averageScoreJohn);
 console.log('Mike: ' + averageScoreMike);
 console.log('Mary: ' + averageScoreMary);
+*/
 
+let player1 = {
+	name: 'John',
+	score: [89, 120, 103]
+
+};
+
+let player2 = {
+	name: 'Mike',
+	score: [116, 94, 123]
+}
+
+let player3 = {
+	name: 'Mary',
+	score: [97, 134, 105]
+}
+
+
+function averageScore(array) {
+	return array.reduce((a, b) => a + b) / array.length;
+}
+
+//console.log(averageScore(player1.score));
+//console.log(averageScore(player2.score));
+//console.log(averageScore(player3.score));
+
+let allPlayersScoreSorted = [[player1.name, averageScore(player1.score)],
+					  		 [player2.name, averageScore(player2.score)],
+							 [player3.name, averageScore(player3.score)]].sort((a, b) => b[1] - a[1]);
+
+console.log(allPlayersScoreSorted);
+
+if (allPlayersScoreSorted[0][1] === allPlayersScoreSorted[1][1]) {
+	console.log('It\'s a tie!');
+} else {
+	console.log(allPlayersScoreSorted[0][0] + ' won! Score: ' + allPlayersScoreSorted[0][1]);
+}
+
+/*
+let scoreJohn = [89, 120, 103];
+let scoreMike = [116, 94, 123];
+let scoreMary = [97, 134, 105];
+
+function averageScore(array) {
+	return array.reduce((a, b) => a + b) / array.length;
+}
+
+console.log(averageScore(scoreJohn));
+console.log(averageScore(scoreMike));
+console.log(averageScore(scoreMary));
+
+let playersScore = [averageScore(scoreJohn), averageScore(scoreMike), averageScore(scoreMary)];
+
+let playersRanking = playersScore.sort((a, b) => b - a);
+
+console.log(playersRanking);
+
+
+/*
 if (averageScoreJohn > averageScoreMike && averageScoreJohn > averageScoreMary) {
 	console.log('John is a winner! Average score: ' + averageScoreJohn);
 } else if (averageScoreMike > averageScoreJohn && averageScoreMike > averageScoreMary) {
@@ -64,7 +132,7 @@ if (averageScoreJohn > averageScoreMike && averageScoreJohn > averageScoreMary) 
 } else {
 	console.log('It\'s a tie!')
 }
-
+*/
 
 
 /* CODING CHALLENGE 3
@@ -99,16 +167,19 @@ function tipCalculator(bill) {
 }
 
 const bills = [124, 48, 268];
+/*
+let tips = [];
+let totalBills = [];
 
-let tips = [Math.round(tipCalculator(bills[0])),
-			Math.round(tipCalculator(bills[1])),
-			Math.round(tipCalculator(bills[2]))
-];
-
-let totalBills = [bills[0] + tips[0],
-				 bills[1] + tips[1],
-				 bills[2] + tips[2],
-];
+for (i = 0; i < bills.length; i++) {
+	let tip = Math.round(tipCalculator(bills[i]));
+	tips.push(tip);
+	let totalBill = bills[i] + tips[i];
+	totalBills.push(totalBill);
+};
+*/
+let tips = bills.map(a => Math.round(tipCalculator(a)));
+let totalBills = bills.map((num, idx) => num + tips[idx]);
 
 console.log(tips, totalBills);
 
@@ -127,41 +198,38 @@ BMI.
 
 Remember: BMI = mass / height^2 = mass / (height * height). (mass in kg 
 and height in meter).
-
+ 
 GOOD LUCK 😀
 */
-
-let john = {
+const john = {
 	fullName: 'John Snow',
 	mass: 95,
 	height: 1.92,
 	calculateBMI: function () {
-		this.bmi = this.mass / (this.height * this.height);
+		this.bmi = Math.round(this.mass / (this.height * this.height) * 100) / 100;
 		return this.bmi;
 	}
 };
 
-let mark = {
-	fullName: 'Mark Sunshine',
-	mass: 80,
-	height: 1.75,
-	calculateBMI: function () {
-		this.bmi = this.mass / (this.height * this.height);
-		return this.bmi;
-	}
-};
+john.calculateBMI();
 
-//console.log(john.calculateBMI());
-//console.log(mark.calculateBMI());
-//console.log(john, mark);
+const mark = Object.create(john);
+mark.fullName = 'Mark Sunshine';
+mark.mass = 80;
+mark.height = 1.75;
+john.calculateBMI.call(mark);
 
-if (john.calculateBMI() > mark.calculateBMI()) {
-    console.log(john.fullName + ' has a higher BMI of ' + john.bmi);
-} else if (mark.bmi > john.bmi) {
-    console.log(mark.fullName + ' has a higher BMI of ' + mark.bmi);
-} else {
-    console.log('They have the same BMI');
-};
+
+console.log(mark.bmi, john.bmi);
+
+let bothBmiSorted = [[john.fullName, john.bmi],
+			   [mark.fullName, mark.bmi]].sort((a, b) => b[1] - a[1]);
+
+console.log(bothBmiSorted);
+
+bothBmiSorted[0][1] === bothBmiSorted[1][1] ? console.log('They have the same BMI') : console.log(bothBmiSorted[0][0] + ' has higher BMI: ' + bothBmiSorted[0][1]);
+
+
 
 /* CODING CHALLENGE 5
 
@@ -185,7 +253,8 @@ Mark likes to tip 20% of the bill when the bill is less than $100, 10% when the 
 5. Implement the same functionality as before, this time using Mark's tipping rules
 6. Create a function (not a method) to calculate the average of a given array of tips. HINT: Loop over the array, and in each iteration store the current sum in a variable (starting from 0). After you have the sum of the array, divide it by the number of elements in it (that's how you calculate the average)
 7. Calculate the average tip for each family
-8. Log to the console which family paid the highest tips on average
+8. Log to the console whic
+h family paid the highest tips on average
 
 GOOD LUCK 😀
 */
